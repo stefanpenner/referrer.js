@@ -7,7 +7,7 @@ Iamstef.referrer = (function(){
   // captures [ line,domain,keywords]; 
  
 
-  // parse a given url
+  // extract the keywords
   var keywords = function(url){
 
     var keywords = '', 
@@ -38,6 +38,7 @@ Iamstef.referrer = (function(){
     return keywords;
   };
 
+  // extract the hostname
   var hostname = function(url){
     var matches, hostname;
     
@@ -53,7 +54,7 @@ Iamstef.referrer = (function(){
     return hostname;
   };
 
-  
+  // extract the protocol
   var protocol = function(url){
     var matches, protocol;
     
@@ -71,23 +72,27 @@ Iamstef.referrer = (function(){
 
   return { 
     version  : "0.0.1",
+    
     "protocol" : function(){
       var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
 
       return protocol(url);
     },
+    
     "hostname" : function(){
       var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
 
       return hostname(url);
     },
+
     // keywords() will parse the keywords from document.referrer
     // keywords(some_url) will parse the keywords from the given url
     "keywords" : function() { 
       var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
 
       return keywords(url);
-    }};
+    }
+  };
 })();
 
 
