@@ -4,9 +4,9 @@ Iamstef.referrer = (function(){
 
   //precompile the REGX to  match url : capture keywords
   var REGEXP     = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))\/(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i);
+  
   // captures [ line,domain,keywords]; 
  
-
   // extract the keywords
   var keywords = function(url){
 
@@ -26,10 +26,10 @@ Iamstef.referrer = (function(){
       uncleaned_keywords = matches[3];
       
       keywords = decodeURIComponent(uncleaned_keywords)    
-                  .replace(/\s+/g,'+')         // remove whitespace 
-                  .replace(/\+\++/g,'+')       // collapse consecutive '+'
-                  .replace(/[\+\.]+$/,'')      // remove whitespace 
-                  .replace(/^\++/,'');         // remove whitespace 
+                  .replace(/\++/g,' ')         // remove '+'s
+                  .replace(/\s\s+/g,' ')       // collapse consecutive whitespace
+                  .replace(/^\s+/,'')          // remove leading whitespace 
+                  .replace(/\s+$/,'');         // remove trailing whitespace 
       
       if(keywords === "undefined") { keywords = ''; }
 
