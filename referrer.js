@@ -32,12 +32,6 @@ Iamstef.referrer = (function(){
       cache  = {};
   
 
-  //simple memoization to prevent needless parsing.
-  var memoize = function(fn,url){
-    var result = cache[url] = cache[url] || fn.call(url)
-    return result;
-  }
-
   // extract the keywords
   var keywords = function(url){
 
@@ -52,7 +46,6 @@ Iamstef.referrer = (function(){
 
       matches = cache[url] = cache[url] || REGEXP.exec(url);
      
-      matches = memoize(REGEXP.exec,url);
       if(matches.length !== 4) { return ''; }
        
       uncleaned_keywords = matches[3];
