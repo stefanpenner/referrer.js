@@ -12,15 +12,15 @@ Iamstef.referrer = (function(){
 
     var keywords = '', 
         regx, 
-        referrer, 
-        uncleaned_keywords;
+        referrer, [
+        uncleaned_keywords,
+        matches;
 
     //untrusted input, if anything goes wrong return '';
     try{
 
-      var matches = REGEXP.exec(url);
-      console.log(matches);
-      // matches = [ url,domain,keywords];
+      matches = REGEXP.exec(url);
+      
       if(matches.length !== 4) { return ''; }
        
       uncleaned_keywords = matches[3];
