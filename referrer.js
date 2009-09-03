@@ -28,24 +28,31 @@ var Iamstef = Iamstef || {};
 Iamstef.referrer = (function(){
 
   //precompile the REGX to  match url : capture keywords
-  var REGEXP     = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))\/(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i);
+  var REGEXP = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))\/(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i),
+      cache  = {};
   
-  // captures [ line,domain,keywords]; 
- 
+
+  //simple memoization to prevent needless parsing.
+  var memoize = function(fn,url){
+    var result = cache[url] = cache[url] || fn.call(url)
+    return result;
+  }
+
   // extract the keywords
   var keywords = function(url){
 
     var keywords = '', 
         regx, 
-        referrer, [
+        referrer, 
         uncleaned_keywords,
         matches;
 
     //untrusted input, if anything goes wrong return '';
     try{
 
-      matches = REGEXP.exec(url);
-      
+      matches = cache[url] = cache[url] || REGEXP.exec(url);
+     
+      matches = memoize(REGEXP.exec,url);
       if(matches.length !== 4) { return ''; }
        
       uncleaned_keywords = matches[3];
@@ -68,8 +75,8 @@ Iamstef.referrer = (function(){
     var matches, hostname;
     
     try{
-      matches = REGEXP.exec(url);
-      
+      matches = cache[url] = cache[url] || REGEXP.exec(url);
+
       (matches.length < 3) ?  
         hostname =  '' :
         hostname = matches[2];
@@ -84,7 +91,6 @@ Iamstef.referrer = (function(){
     var matches, protocol;
     
     try{
-      matches = REGEXP.exec(url);
       
       (matches.length < 2) ?  
         protocol =  '' :
