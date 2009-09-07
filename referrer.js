@@ -27,7 +27,7 @@ var Iamstef = Iamstef || {};
 Iamstef.referrer = (function(){
 
   //precompile the REGX to  match url : capture keywords
-  var REGEXP = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i),
+  var REGEXP = /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i,
       cache  = {},
       undef;
 
@@ -44,7 +44,7 @@ Iamstef.referrer = (function(){
     matches = cache[url] = cache[url] || REGEXP.exec(url);
     
     // short circuit if the capture did not yield what we wanted
-    if(matches == undef || matches[3] == undef) { return ''; }
+    if(!(matches && matches[3])) { return ''; }
        
     uncleaned_keywords = matches[3];
     
@@ -54,7 +54,7 @@ Iamstef.referrer = (function(){
                 replace(/^\s+/,'').          // remove leading whitespace 
                 replace(/\s+$/,'');          // remove trailing whitespace 
       
-    return (result == undef) ? '' : result;
+    return result ? result : '';
   };
 
   // extract the hostname
@@ -63,7 +63,7 @@ Iamstef.referrer = (function(){
     
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-    return (matches == undef || matches[2] == undef) ? '' : matches[2]
+    return (matches && matches[2]) ? matches[2] : '';
   };
 
   // extract the protocol
@@ -73,29 +73,23 @@ Iamstef.referrer = (function(){
     // cache lookup or parse
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-    return (matches == undef || matches[3] == undef) ? '' : matches[1];
+    return (matches && matches[3]) ? matches[1] : '';
   };
   return { 
     version  : "0.0.2",
     
-    "protocol" : function(){
-      var url = ( arguments[0] == undef ) ? document.referrer : arguments[0];
-
-      return protocol(url);
+    "protocol" : function(url){
+      return protocol(url || document.referrer);
     },
     
-    "hostname" : function(){
-      var url = ( arguments[0] == undef ) ? document.referrer : arguments[0];
-
-      return hostname(url);
+    "hostname" : function(url){
+      return hostname(url || document.referrer);
     },
 
     // keywords() will parse the keywords from document.referrer
     // keywords(some_url) will parse the keywords from the given url
-    "keywords" : function() { 
-      var url = ( arguments[0] == undef ) ? document.referrer : arguments[0];
-
-      return keywords(url);
+    "keywords" : function(url) { 
+      return keywords(url || document.referrer);
     }
   };
 })();
