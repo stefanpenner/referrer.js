@@ -28,14 +28,13 @@ var Iamstef = Iamstef || {};
 Iamstef.referrer = (function(){
 
   //precompile the REGX to  match url : capture keywords
-  var REGEXP = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))\/(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i),
+  var REGEXP = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i),
       cache  = {};
-  
 
   // extract the keywords
-  var keywords = function(url){
+  function keywords(url){
 
-    var keywords = '', 
+    var result = '', 
         regx, 
         referrer, 
         uncleaned_keywords,
@@ -50,21 +49,21 @@ Iamstef.referrer = (function(){
        
       uncleaned_keywords = matches[3];
       
-      keywords = decodeURIComponent(uncleaned_keywords)    
+      result = decodeURIComponent(uncleaned_keywords)    
                   .replace(/\++/g,' ')         // remove '+'s
                   .replace(/\s\s+/g,' ')       // collapse consecutive whitespace
                   .replace(/^\s+/,'')          // remove leading whitespace 
                   .replace(/\s+$/,'');         // remove trailing whitespace 
       
-      if(keywords === "undefined") { keywords = ''; }
+      if(result === "undefined") { result = ''; }
 
-    }catch (err){ keywords = ''; }
+    }catch (err){ result = ''; }
 
-    return keywords;
+    return result;
   };
 
   // extract the hostname
-  var hostname = function(url){
+  function hostname(url){
     var matches, hostname;
     
     try{
@@ -80,18 +79,16 @@ Iamstef.referrer = (function(){
   };
 
   // extract the protocol
-  var protocol = function(url){
-    var matches, protocol;
+  function protocol(url){
+    var matches, result;
     
     try{
-      
-      (matches.length < 2) ?  
-        protocol =  '' :
-        protocol = matches[1];
+      matches = cache[url] = cache[url] || REGEXP.exec(url);
+      result = (matches.length < 2) ?  '' : matches[1];
     
-    }catch (err){ protocol =  '' }
+    }catch (err){ result = '' }
 
-    return protocol;
+    return result;
   };
 
   return { 

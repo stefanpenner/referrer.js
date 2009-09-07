@@ -2,8 +2,7 @@
       var invalid_referrers = ["/blog/?p=164",
                                "__JC_UNKNOWN_VAR_cloak.daily-2009-08-09-62-00.vars.referer__",
                                "file:///D:/Belgelerim/My%20Virtual%20Machines/microsoft-iis-60-webdav-remote-authentication-bypass-vulnerability.htm",
-                               "http://10.0.17.27/?_task=mail&_action=preview&_uid=1269&_mbox=INBOX&_framed=1",
-                               "http://127.0.0.1:4664/preview?event_id=122073&schema_id=2&q=double+email&s=000000000000000000000000000",
+                               "http://10.0.17.27/?_task=mail&_action=preview&_uid=1269&_mbox=INBOX&_framed=1"
                                ];
       var valid_referrers = {
         "http://www.google.at/search?hl=de&client=firefox-a&rls=org.mozilla%3Aen-US%3Aofficial&hs=E36&q=nmap+NT_STATUS_OBJECT_NAME_NOT_FOUND&btnG=Suche&meta=" : "nmap NT_STATUS_OBJECT_NAME_NOT_FOUND",
@@ -16,7 +15,8 @@
         "http://search.lycos.com/?query=search+lycos&x=0&y=0&diktfc=8F6B14F21F968795CB226449711AEB0147FB12BC5DF0"                                              : "search lycos",
         "http://ca.search.yahoo.com/search;_ylt=A0oG75k5K5NKFtcACXLrFAx.?p=lets+search+google&y=Search&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1"                    : "lets search google",
         "http://search.aol.ca/aol/search?invocationType=&query=lets+search+google&do=Search"                                                                   : "lets search google",
-        "http://search1.sky.com/web?term=lets+search+google"                                                                                                   : "lets search google"
+        "http://search1.sky.com/web?term=lets+search+google"                                                                                                   : "lets search google",
+        "http://127.0.0.1:4664/preview?event_id=122073&schema_id=2&q=double+email&s=000000000000000000000000000" : "double email",
                                };
 
       //fire unit integration
