@@ -55,7 +55,7 @@ Iamstef.referrer = (function(){
                 replace(/^\s+/,'').          // remove leading whitespace 
                 replace(/\s+$/,'');          // remove trailing whitespace 
       
-    return (result === undef) ? '' : result;
+    return (result == undef) ? '' : result;
   };
 
   // extract the hostname
