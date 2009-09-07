@@ -16,7 +16,7 @@
         "http://ca.search.yahoo.com/search;_ylt=A0oG75k5K5NKFtcACXLrFAx.?p=lets+search+google&y=Search&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1"                    : "lets search google",
         "http://search.aol.ca/aol/search?invocationType=&query=lets+search+google&do=Search"                                                                   : "lets search google",
         "http://search1.sky.com/web?term=lets+search+google"                                                                                                   : "lets search google",
-        "http://127.0.0.1:4664/preview?event_id=122073&schema_id=2&q=double+email&s=000000000000000000000000000" : "double email",
+        "http://127.0.0.1:4664/preview?event_id=122073&schema_id=2&q=double+email&s=000000000000000000000000000" : "double email"
                                };
 
       //fire unit integration

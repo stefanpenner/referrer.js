@@ -73,7 +73,7 @@ Iamstef.referrer = (function(){
     // cache lookup or parse
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-    return (matches && matches[3]) ? matches[1] : '';
+    return (matches && matches[1]) ? matches[1] : '';
   };
   return { 
     version  : "0.0.2",
