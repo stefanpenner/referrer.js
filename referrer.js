@@ -28,15 +28,12 @@ var Iamstef = Iamstef || {};
 
   //precompile the REGX to  match url : capture keywords
   var REGEXP = /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i,
-      cache  = {},
-      undef;
+      cache  = {};
 
   // extract the keywords
   function keywords(url){
 
     var result = '', 
-        regx, 
-        referrer, 
         uncleaned_keywords,
         matches;
 
@@ -55,7 +52,7 @@ var Iamstef = Iamstef || {};
                 replace(/\s+$/,'');          // remove trailing whitespace 
       
     return result ? result : '';
-  };
+  }
 
   // extract the hostname
   function hostname(url){
@@ -64,7 +61,7 @@ var Iamstef = Iamstef || {};
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
     return (matches && matches[2]) ? matches[2] : '';
-  };
+  }
 
   // extract the protocol
   function protocol(url){
@@ -74,7 +71,7 @@ var Iamstef = Iamstef || {};
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
     return (matches && matches[1]) ? matches[1] : '';
-  };
+  }
 
   namespace.referrer = {
     "version"  : "0.0.2",
@@ -94,5 +91,4 @@ var Iamstef = Iamstef || {};
     }
   };
 })(Iamstef);
-
 
