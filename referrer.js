@@ -24,7 +24,7 @@
 */
 
 var Iamstef = Iamstef || {};
-Iamstef.referrer = (function(){
+(function(namespace){
 
   //precompile the REGX to  match url : capture keywords
   var REGEXP = /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i,
@@ -75,8 +75,9 @@ Iamstef.referrer = (function(){
 
     return (matches && matches[1]) ? matches[1] : '';
   };
-  return { 
-    version  : "0.0.2",
+
+  namespace.referrer = {
+    "version"  : "0.0.2",
     
     "protocol" : function(url){
       return protocol(url || document.referrer);
@@ -92,6 +93,6 @@ Iamstef.referrer = (function(){
       return keywords(url || document.referrer);
     }
   };
-})();
+})(Iamstef);
 
 
