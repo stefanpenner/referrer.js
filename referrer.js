@@ -29,7 +29,8 @@ Iamstef.referrer = (function(){
 
   //precompile the REGX to  match url : capture keywords
   var REGEXP = new RegExp( /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i),
-      cache  = {};
+      cache  = {},
+      undef;
 
   // extract the keywords
   function keywords(url){
@@ -40,59 +41,44 @@ Iamstef.referrer = (function(){
         uncleaned_keywords,
         matches;
 
-    //untrusted input, if anything goes wrong return '';
-    try{
-
-      matches = cache[url] = cache[url] || REGEXP.exec(url);
-     
-      if(matches.length !== 4) { return ''; }
+    //lookup or parse
+    matches = cache[url] = cache[url] || REGEXP.exec(url);
+    
+    // short circuit if the capture did not yield what we wanted
+    if(matches == undef || matches[3] == undef) { return ''; }
        
-      uncleaned_keywords = matches[3];
+    uncleaned_keywords = matches[3];
+    
+    result = decodeURIComponent(uncleaned_keywords).    
+                replace(/\++/g,' ').         // remove '+'s
+                replace(/\s\s+/g,' ').       // collapse consecutive whitespace
+                replace(/^\s+/,'').          // remove leading whitespace 
+                replace(/\s+$/,'');          // remove trailing whitespace 
       
-      result = decodeURIComponent(uncleaned_keywords)    
-                  .replace(/\++/g,' ')         // remove '+'s
-                  .replace(/\s\s+/g,' ')       // collapse consecutive whitespace
-                  .replace(/^\s+/,'')          // remove leading whitespace 
-                  .replace(/\s+$/,'');         // remove trailing whitespace 
-      
-      if(result === "undefined") { result = ''; }
-
-    }catch (err){ result = ''; }
-
-    return result;
+    return (result === undef) ? '' : result;
   };
 
   // extract the hostname
   function hostname(url){
-    var matches, hostname;
+    var matches;
     
-    try{
-      matches = cache[url] = cache[url] || REGEXP.exec(url);
+    matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-      (matches.length < 3) ?  
-        hostname =  '' :
-        hostname = matches[2];
-    
-    }catch (err){ hostname =  '' }
-
-    return hostname;
+    return (matches == null || matches[2] == null) ? '' : matches[2]
   };
 
   // extract the protocol
   function protocol(url){
-    var matches, result;
+    var matches;
     
-    try{
-      matches = cache[url] = cache[url] || REGEXP.exec(url);
-      result = (matches.length < 2) ?  '' : matches[1];
-    
-    }catch (err){ result = '' }
+    // cache lookup or parse
+    matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-    return result;
+    return (matches == null || matches[3] == null) ? '' : matches[1];
   };
 
   return { 
-    version  : "0.0.1",
+    version  : "0.0.2",
     
     "protocol" : function(){
       var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
