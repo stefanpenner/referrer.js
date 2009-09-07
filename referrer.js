@@ -24,7 +24,6 @@
 */
 
 var Iamstef = Iamstef || {};
-
 Iamstef.referrer = (function(){
 
   //precompile the REGX to  match url : capture keywords
@@ -64,7 +63,7 @@ Iamstef.referrer = (function(){
     
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-    return (matches == null || matches[2] == null) ? '' : matches[2]
+    return (matches == undef || matches[2] == undef) ? '' : matches[2]
   };
 
   // extract the protocol
@@ -74,20 +73,19 @@ Iamstef.referrer = (function(){
     // cache lookup or parse
     matches = cache[url] = cache[url] || REGEXP.exec(url);
 
-    return (matches == null || matches[3] == null) ? '' : matches[1];
+    return (matches == undef || matches[3] == undef) ? '' : matches[1];
   };
-
   return { 
     version  : "0.0.2",
     
     "protocol" : function(){
-      var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
+      var url = ( arguments[0] == undef ) ? document.referrer : arguments[0];
 
       return protocol(url);
     },
     
     "hostname" : function(){
-      var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
+      var url = ( arguments[0] == undef ) ? document.referrer : arguments[0];
 
       return hostname(url);
     },
@@ -95,7 +93,7 @@ Iamstef.referrer = (function(){
     // keywords() will parse the keywords from document.referrer
     // keywords(some_url) will parse the keywords from the given url
     "keywords" : function() { 
-      var url = ( arguments[0] !== undefined ) ? arguments[0] : document.referrer;
+      var url = ( arguments[0] == undef ) ? document.referrer : arguments[0];
 
       return keywords(url);
     }
