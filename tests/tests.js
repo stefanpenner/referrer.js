@@ -4,6 +4,7 @@
                                "file:///D:/Belgelerim/My%20Virtual%20Machines/microsoft-iis-60-webdav-remote-authentication-bypass-vulnerability.htm",
                                "http://10.0.17.27/?_task=mail&_action=preview&_uid=1269&_mbox=INBOX&_framed=1"
                                ];
+
       var valid_referrers = {
         "http://www.google.at/search?hl=de&client=firefox-a&rls=org.mozilla%3Aen-US%3Aofficial&hs=E36&q=nmap+NT_STATUS_OBJECT_NAME_NOT_FOUND&btnG=Suche&meta=" : "nmap NT_STATUS_OBJECT_NAME_NOT_FOUND",
         "http://www.google.ca/search?q=stefan+penner&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:en-US:official&client=firefox-a"                                   : "stefan penner",
@@ -16,8 +17,9 @@
         "http://ca.search.yahoo.com/search;_ylt=A0oG75k5K5NKFtcACXLrFAx.?p=lets+search+google&y=Search&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1"                    : "lets search google",
         "http://search.aol.ca/aol/search?invocationType=&query=lets+search+google&do=Search"                                                                   : "lets search google",
         "http://search1.sky.com/web?term=lets+search+google"                                                                                                   : "lets search google",
-        "http://127.0.0.1:4664/preview?event_id=122073&schema_id=2&q=double+email&s=000000000000000000000000000" : "double email"
-                               };
+        "http://127.0.0.1:4664/preview?event_id=122073&schema_id=2&q=double+email&s=000000000000000000000000000" : "double email",
+        "http://www.google.com/search?q= CHRISTMAS TREES&rls=com.microsoft:*:IE-SearchBox&ie=UTF-8&oe=UTF-8&sourceid=ie7" : "CHRISTMAS TREES"
+      };
 
       //fire unit integration
       if ( typeof fireunit === "object" ) {
