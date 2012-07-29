@@ -27,7 +27,8 @@ var Iamstef = Iamstef || {};
 (function(namespace){
 
   //precompile the REGX to  match url : capture keywords
-  var REGEXP = /^(\w+?):\/\/((?:[\w\-]+\.)+(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i,
+//                http : / /  hostname                   /
+  var REGEXP = /^(\w+?):\/\/((?:[\w\-]+\.)*(?:[\w\-]+))?\/?(?:(?:.+)?[\?&](?:q|p|query|term)=([^&]+)&?)?/i,
       cache  = {};
 
   // extract the keywords

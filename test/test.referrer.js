@@ -48,3 +48,9 @@ test("valid referrers", function() {
 });
 
 
+test("hostname is a custom entry in hosts file", function() {
+  var value = Iamstef.referrer.hostname("http://pirates/complex/contact");
+  equals( value, "pirates", "We expect it should be able to recognize a hostname without assuming a .tld component");
+});
+
+
